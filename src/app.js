@@ -1,59 +1,74 @@
-//node.js, yarn@1.3.2-g, live-server@1.2.0-g, babel@6.24.1 -g
+//node.js, yarn@1.3.2-g, live-server@1.2.0-g, babel-cli@6.24.1 -g
 
 //yarn install
 
 //babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
 
-//3.12 10:20
+//3.21
 
 
 console.log('App.js is running!');
+
+const app = {
+    title: 'Indecision App',
+    subtitle: 'Put your life in the hands of a computer',
+    options: [],
+};
+
+
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(app.mappedArray);
+    const option = e.target.elements.option.value;
+
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value='';
+        render();
+    }
+};
+
+
+const onOptionsReset = e => {
+    app.options=[];
+    render();
+};
+
+const onMakeDecision = () => {
+    const randomOptionIndex = Math.floor(Math.random()*app.options.length);
+    console.log(randomOptionIndex);
+    console.log(app.options[randomOptionIndex]);
+};
+
+
+
 const appRoot = document.getElementById('app');
-
-const title = {
-    main: 'Indecision App!',
-    sub: 'This is the sub-title!'
+const render=() => {
+    const template = (
+        <div>
+            <h1>{app.title}</h1>
+            {app.subtitle && <p>{app.subtitle}</p>}
+            <p>{app.options.length >0?'Here are your options:' : 'No Options left.'}</p>
+            <button disabled={app.options.length==0} onClick={onMakeDecision}>What should i do?</button>
+            <button onClick={onOptionsReset}>Remove All</button>
+            {
+                 <ol>{
+                    app.options.map(option => <li key={option}>{option}</li>)
+                 }</ol>              
+            }
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option"/>
+                <button>Add Option</button>
+            </form>
+        </div>
+    );
+    ReactDOM.render(template, appRoot);
 };
 
-// JSX - JavaScript XML
-const template = (
-    <div>
-        <h1>{title.main}</h1>
-        <p>{title.sub}</p>
-        <ol>
-            <li>item1</li>
-            <li>item2</li>
-            <li>item3</li>
-        </ol>
-    </div>
-);
-
-const user = {
-    name: 'Omer Zauber',
-    age: 26,
-    location: 'Israel'
-}
-
-
-
-const getField = (data,field) => {
-    if (user[field]) return <p>{field}: {data[field]}</p>;
-};
-
-const template2 = (
-    <div>
-        {getField(user,'name')}
-        {getField(user,'age')}
-        {getField(user,'location')}
-        {getField(user,'No such field')}
-    </div>
-);
-
-ReactDOM.render(template2, appRoot);
+render();
 
 
 
 
-// ReactDOM.render(template2, appRoot);
 
 
