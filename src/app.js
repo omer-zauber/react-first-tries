@@ -1,11 +1,3 @@
-//node.js, yarn@1.3.2-g, live-server@1.2.0-g, babel-cli@6.24.1 -g
-
-//yarn install
-
-//babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
-
-//3.21
-
 class IndecisionApp extends React.Component {    
     render() {
         const title = "Indecision App";
