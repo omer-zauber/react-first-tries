@@ -46,9 +46,18 @@ class Action extends React.Component {
 //Setup options prop for Options. render the length
 
 class Options extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    }
+    handleRemoveAll() {
+        //this.props.options = [];
+        console.log(this.props.options);
+    }
     render() {
         return (
             <div id="options">
+                <button onClick={this.handleRemoveAll}>Remove All</button>
                 <p id="somthing">you have {this.props.options.length} options!</p>
                 <br />
                 {this.props.options.map(option => <Option key = {option} option = {option} />)}
@@ -66,11 +75,27 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleAddOption = this.handleAddOption.bind(this);
+    }
+    handleAddOption(e) {
+        e.preventDefault();
+        const option = e.target.elements.option.value.trim();
+
+        if (option) {
+            alert (option);
+            e.target.elements.option.value='';
+            this.props.options.push(option);
+        }
+    }
+
     render() {
         return (
-            <div id="addOption">
+            <form onSubmit={this.handleAddOption}>
+                <input type="text" name="option"/>
                 <button>Add Option</button>
-            </div>
+            </form>
         );
     }
 }
