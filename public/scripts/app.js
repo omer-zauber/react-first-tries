@@ -27,6 +27,11 @@ var IndecisionApp = function (_React$Component) {
     }
 
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('componentDidMount!');
+        }
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             this.setState(function () {
@@ -169,7 +174,7 @@ var Option = function Option(props) {
         React.createElement(
             'button',
             {
-                onClick: function onClick(e) {
+                onClick: function onClick(event) {
                     props.handleDeleteOption(props.option);
                 }
             },

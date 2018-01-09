@@ -9,6 +9,9 @@ class IndecisionApp extends React.Component {
             options: props.options
         }
     }
+    componentDidMount() {
+        console.log('componentDidMount!');
+    }
     
     handleDeleteOptions() {
         this.setState(()=>({ options: [] }));
@@ -107,7 +110,7 @@ const Option = props => (
     <li>
         {props.option}
         <button 
-            onClick={(e) => {
+            onClick={(event) => {
                 props.handleDeleteOption(props.option);
             }}
         >
